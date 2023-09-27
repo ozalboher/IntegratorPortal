@@ -1,11 +1,15 @@
 import React from "react";
-import './HomePage.css';
+import { CircleMenu } from "../../Components/CircleMenu/CircleMenu";
+import "./HomePage.css";
 
 export const HomePage = () => {
-    return (
-        <div className="HomePage">
-            <h1>Home Page</h1>
-            <p>This is the home page.</p>
+  return (
+    <>
+      <div className="HomePage">
+        <div className="page-content-center">
+      <CircleMenu />
         </div>
-    );
+      </div>
+    </>
+  );
 };
