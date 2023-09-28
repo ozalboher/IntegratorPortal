@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from React Router
-import "./CircleMenu.css";
+import './ProjectsPage.css';
 
-export const CircleMenu = () => {
+export const ProjectsPage = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleMenu = () => {
@@ -10,20 +11,23 @@ export const CircleMenu = () => {
   };
 
   const menuItems = [
-      { icon: "fa-search", label: "תוכנות", link: "/search" },
-      { icon: "fa-user", label: "הדרכות", link: "/profile" },
-      { icon: "fa-cog", label: "ניסויים", link: "/settings" },
-      { icon: "fa-home", label: "פרויקטים", link: "/projects" },
+      { icon: "fa-search", label: "Reccelite XR", link: "/search" },
+      { icon: "fa-user", label: "Litening", link: "/profile" },
+      { icon: "fa-user", label: "Blue Bird", link: "/profile" },
+      { icon: "fa-user", label: "Hydra", link: "/profile" },
+
   ];
 
 
-
-  return (
-    <div className="circle-menu-container">
-      <button className="circle-menu-button" onClick={toggleMenu}>
-        <i className={`fas ${isOpen ? "fa-times" : "fa-bars"}`}>Menu</i>
+    return (
+      <div className="page-content-center">
+      <div className="circle-menu-container">
+        <Link to={'/home'}>
+      <button className="circle-menu-button">
+        <i className={`fas`}>Back</i>
       </button>
-      <div className={`circle-menu ${isOpen ? "open" : ""}`}>
+        </Link>
+      <div className={`circle-menu ${"open"}`}>
         {menuItems.map((item, index) => (
           <Link key={index} to={item.link}>
             <button
@@ -41,5 +45,6 @@ export const CircleMenu = () => {
         ))}
       </div>
     </div>
-  );
+    </div>
+    );
 };

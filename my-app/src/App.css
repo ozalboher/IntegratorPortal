@@ -45,7 +45,12 @@ nav{
   align-items: center;
   margin-top: 80px;
 }
-
+.page-content-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 300px;
+}
 .nav-links {
 	margin: 0;
 	padding: 0;

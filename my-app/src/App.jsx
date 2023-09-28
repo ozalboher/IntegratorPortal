@@ -4,6 +4,7 @@ import { HomePage } from './Views/HomePage/HomePage';
 import { AboutPage } from './Views/AboutPage/AboutPage';
 import { NotFound } from './Views/NotFound/NotFound';
 import { ProfilePage } from './Views/ProfilePage/ProfilePage';
+import { ProjectsPage } from './Views/ProjectsPage/ProjectsPage';
 function App() {
   return (
     <div className="App">
@@ -31,6 +32,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </section>
