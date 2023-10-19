@@ -1,0 +1,34 @@
+.Msg {
+  color: rgb(1, 110, 1);
+  background-color: #8ef68834;
+  padding: 9px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+  animation: fadeInOut 0.2s ease-in-out forwards;
+}
+
+.Msg[data-error="true"] {
+  background-color: #f6888862;
+  color: rgb(236, 0, 0);
+}
+
+.error-container {
+  margin-top: 10px;
+  margin-bottom: -12px;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+    25%, 75% {
+      transform: translateX(-5px) scale(1.02);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(5px) scale(0.98);
+      opacity: 0.8;
+    }
+  }
