@@ -76,11 +76,17 @@ form{
     font-weight: 400;
     border-radius: 6px;
     background-color: #c3b47637;
+    
 }
 .field input{
     outline: none;
     padding: 0 15px;
     border: 1px solid#CACACA;
+}
+.input-field{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .field input:focus{
     border-bottom-width: 2px;

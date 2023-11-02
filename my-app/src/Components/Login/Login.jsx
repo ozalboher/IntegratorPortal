@@ -19,9 +19,11 @@ export const Login = ({showLogin, setShowLogin, showSuccessMsg, setShowModal}) =
     console.log('handleLogin');
   };
 
-  const handleShowPass = () => {
+  const handleShowPass = (event) => {
+    console.log('handleShowPass');
     setShowPass(!showPass);
   };
+  
   const handleSignUpLink = () => {
     setShowLogin(!showLogin);
   };
@@ -38,24 +40,21 @@ export const Login = ({showLogin, setShowLogin, showSuccessMsg, setShowModal}) =
               <div className="field input-field">
                 <input type="email" placeholder="Email" className="input" onChange={(e)=>setEmail(e.target.value)} />
               </div>
-
               <div className="field input-field">
                 <input
                   type={showPass ? "text" : "password"}
                   placeholder="Password"
                   className="password"
                   onChange={(e)=>setPassword(e.target.value)}
-                />
-                {showPass && <EyeOpen onClick={handleShowPass}/>}
-                {!showPass && <EyeClosed  onClick={handleShowPass}/>}
+                  />
+                  {showPass && <EyeOpen onClick={handleShowPass}/>} 
+                  {!showPass && <EyeClosed onClick={handleShowPass}/>}
               </div>
-
               <div className="form-link" >
                 <a href="/home" className="forgot-pass">
                   Forgot password?
                 </a>
               </div>
-
               <div className="field button-field">
                 <button onClick={handleLogin}>Login</button>
               </div>
