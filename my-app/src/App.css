@@ -89,11 +89,11 @@ ul{
   display: flex;
 }
 
+
 .active-link {
-  color: red !important;
+  color: rgba(163, 160, 160, 0.928);
+  border-bottom: 2px solid rgb(183, 179, 179);
 }
-
-
 
 
 

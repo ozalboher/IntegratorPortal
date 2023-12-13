@@ -11,7 +11,7 @@ export const Login = ({showLogin, setShowLogin, showSuccessMsg, setShowModal}) =
 
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -38,7 +38,7 @@ export const Login = ({showLogin, setShowLogin, showSuccessMsg, setShowModal}) =
             {error && <Msg msg={error} isError={true} />}
               <span className="login-title">Login</span>
               <div className="field input-field">
-                <input type="email" placeholder="Email" className="input" onChange={(e)=>setEmail(e.target.value)} />
+                <input type="text" placeholder="Username" className="input" onChange={(e)=>setUsername(e.target.value)} />
               </div>
               <div className="field input-field">
                 <input

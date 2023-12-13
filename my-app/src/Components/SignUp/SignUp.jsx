@@ -20,15 +20,25 @@ export const SignUp = ({ showLogin, setShowLogin, setShowSuccessMsg }) => {
   };
   
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [selectedOption, setSelectedOption] = useState('');
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState('');
-  
-  
+
+    const options = [
+      'Litening',
+      'Reccelite XR',
+      'Blue Bird',
+      'Hydra',
+    ];
+
+    const handleSelectChange = (event) => {
+      setSelectedOption(event.target.value);
+    };
   const handleRegister = (e) => {
     console.log("register");
     
@@ -37,7 +47,7 @@ export const SignUp = ({ showLogin, setShowLogin, setShowSuccessMsg }) => {
         setError('Passwords do not match');
         return;
     }
-    else if (!email || !password1 || !password2 || !firstName || !lastName || !phoneNumber) {
+    else if (!username || !password1 || !password2 || !firstName || !lastName || !phoneNumber) {
       return;
   }
    setError('');
@@ -52,7 +62,7 @@ export const SignUp = ({ showLogin, setShowLogin, setShowSuccessMsg }) => {
               <span className="login-title">Sign Up</span>
               <form onSubmit={handleRegister}> 
               <div className="field input-field">
-                <input type="email" placeholder="Email" className="input" value={email} onChange={(e)=> setEmail(e.target.value)} required />
+                <input type="text" placeholder="Username" className="input" value={username} onChange={(e)=> setUsername(e.target.value)} required />
               </div>
               <div className="field input-field">
                 <input
@@ -82,10 +92,24 @@ export const SignUp = ({ showLogin, setShowLogin, setShowSuccessMsg }) => {
               <div className="field input-field">
                 <input type="text" placeholder="First Name" className="input" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required />
               </div>
-
               <div className="field input-field">
                 <input type="text" placeholder="Last Name" className="input" value={lastName} onChange={(e)=>setLastName(e.target.value)} required />
               </div>
+
+           <div>
+              <label htmlFor="dropdown"></label>
+              <select className="project-dropdown" value={selectedOption} onChange={handleSelectChange}>
+                <option value="" disabled>Select project</option>
+                {options.map((option, index) => (
+                  <option className="project-option" key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+                {selectedOption && (
+                  <option value={selectedOption} disabled></option>
+                )}
+              </select>
+            </div>
 
               <div className="field input-field">
                 <input
