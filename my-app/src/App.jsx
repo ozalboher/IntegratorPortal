@@ -42,7 +42,7 @@ const App = () => {
         </div>
         <div className='nav-right'>
         <ul>
-        <li onClick={handleModal}>Login</li>
+        <li onClick={handleModal}><CustomNavLink to="">Login</CustomNavLink></li>
         </ul>
         <ul>
         <li><CustomNavLink to="/profile">Profile</CustomNavLink></li>

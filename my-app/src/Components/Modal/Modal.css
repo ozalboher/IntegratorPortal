@@ -1,5 +1,4 @@
 .Modal, .overlay {
-
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -10,5 +9,9 @@
   }
   .overlay {
     background: rgba(28, 28, 28, 0.6);
+
+  }
+  .Modal {
+    z-index: 4;
   }
   

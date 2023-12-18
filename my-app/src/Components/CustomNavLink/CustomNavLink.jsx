@@ -5,10 +5,21 @@ export const CustomNavLink = ({ to, children, ...props }) => {
   const isActive = match !== null;
   const className = `nav-link underline-effect ${isActive ? 'active-link' : ''}`;
 
-  return (
+  if (to === '') {
+    return (
+      <>
+      <span className={className} {...props}>
+        {children}
+      </span>
+      </>
+    );
+  }
+  else return (
+    <>
     <NavLink to={to} className={className} {...props}>
       {children}
     </NavLink>
+    </>
   );
 };
 

@@ -16,7 +16,6 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
- 
 }
 
 /* Google Fonts - Poppins */
@@ -138,7 +137,7 @@ form{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--light-cream);
+    background-color: #eef3ff;;
     color: #8b8b8b;
     padding: 0 15px;
 }
