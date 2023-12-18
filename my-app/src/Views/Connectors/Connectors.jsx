@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { CircleMenu } from "../../Components/CircleMenu/CircleMenu";
-import { Link } from "react-router-dom"; // Import Link from React Router
-import './ProjectsPage.css';
+import { Link } from "react-router-dom"; 
+import './Connectors.css';
 
-export const ProjectsPage = () => {
+export const Connectors = () => {
+
   const backBtn = true; 
   const menuItems = [
       { label: "Reccelite XR", link: "/search" },
@@ -13,10 +14,10 @@ export const ProjectsPage = () => {
       { label: "Hydra", link: "/profile" },
   ];
 
+  console.log(document.referrer);
 
-    return (
-      <>
-       <CircleMenu items={menuItems} backBtn={backBtn}/>
-      </>
-    );
+  
+  return (
+    <CircleMenu items={menuItems} backBtn={backBtn}/>
+  );
 };

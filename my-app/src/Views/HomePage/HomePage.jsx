@@ -5,10 +5,10 @@ import "./HomePage.css";
 export const HomePage = () => {
 
   const menuItems = [
-    { label: "תוכנות", link: "/search" },
-    { label: "הדרכות", link: "/profile" },
-    { label: "ניסויים", link: "/settings" },
-    { label: "פרויקטים", link: "/projects" },
+    { label: "ECU", link: "/search" },
+    { label: "Umbilical", link: "/profile" },
+    { label: "Harnesses", link: "/project-select" },
+    { label: "Connectors", link: "/connectors" },
 ];
 
   return (
