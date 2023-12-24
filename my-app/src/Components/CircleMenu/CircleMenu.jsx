@@ -6,14 +6,17 @@ import "./CircleMenu.css";
 
 export const CircleMenu = ({items, backBtn}) => {
   const [isOpen, setIsOpen] = useState(true);
-
+  let destinationLink = '';
   const toggleMenu = () => {
     if (!backBtn) setIsOpen(!isOpen);
     else {
       window.history.back();
     }
   };
-  
+  const test = (x) => {
+    destinationLink = x;
+    console.log(destinationLink);
+  }
 
   return (
     <div className="page-content-center">
@@ -23,8 +26,9 @@ export const CircleMenu = ({items, backBtn}) => {
       </button>
       <div className={`circle-menu ${isOpen ? "open" : ""}`}>
         {items.map((item, index) => (
-          <Link key={index} to={item.link}>
-            <button
+          <Link key={index} to={{ pathname: item.link + "/" + item.label}}>
+            
+            <button onClick={() => test(item.label)}
               className="circle-menu-item"
               style={{
                 transform: `rotate(${2.5}deg) translate(50px)`,

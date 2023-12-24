@@ -14,7 +14,7 @@ export const Connectors = () => {
       { label: "Hydra", link: "/profile" },
   ];
 
-  console.log(document.referrer);
+
 
   
   return (

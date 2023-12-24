@@ -83,7 +83,7 @@
 .menu-label {
   display: none;
   color: rgb(215, 212, 212);
-  text-shadow: #0e1e2c 2px 2px 4px;
+  text-shadow: #0e1e2c 1px 1px 6px;
   font-size: 20px;
   margin-top: 5px;
   opacity: 0;

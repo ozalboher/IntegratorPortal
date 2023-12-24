@@ -10,6 +10,7 @@ import { Connectors } from './Views/Connectors/Connectors';
 import { Modal } from './Components/Modal/Modal';
 import { Login } from './Components/Login/Login';
 import { SignUp } from './Components/SignUp/SignUp';
+import { ProjectSelect } from './Views/ProjectSelect/ProjectSelect';
 
 const App = () => {
   
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/connectors" element={<Connectors />} />
+            <Route path="/project-select/:id" element={<ProjectSelect />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           {showModal && (
