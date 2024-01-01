@@ -1,0 +1,104 @@
+/* src/components/InventoryList.css */
+
+.inventory-container {
+    font-family: 'Helvetica', sans-serif;
+    max-width: 2200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .inventory-title {
+    color: #edeaea;
+  }
+  
+  .add-item-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .inventory-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* Each item takes one-sixth of the available width */
+  .inventory-item {
+    margin-bottom: 10px; /* Adjusted margin between rows */
+    background-color:#eef3ff; 
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(20px); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .item-detail {
+    width:100%;
+    margin: 10px;
+  }
+  .item-btns{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .edit-input,
+  .status-dropdown {
+    width: calc(100% - 16px); /* Adjusted for input padding */
+    padding: 8px;
+    margin-top: 5px;
+  }
+  
+  .editable-text {
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .modal-content h3 {
+    color: #333;
+  }
+  
+  .save-button,
+  .edit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-left:10px;
+  }
+  
+  .cancel-button {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  

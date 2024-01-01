@@ -11,7 +11,7 @@ body {
   background-repeat: repeat;
   display:flex;
   flex-direction: column;
-  background-color: #141618ed;;
+  background-color: #141618ed;
   user-select: none;
 }
 
@@ -88,7 +88,9 @@ ul{
   list-style: none;
   display: flex;
 }
-
+li{
+  list-style: none;
+}
 
 .active-link {
   color: rgba(163, 160, 160, 0.928);

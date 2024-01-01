@@ -5,10 +5,9 @@ import "./HomePage.css";
 export const HomePage = () => {
 
   const menuItems = [
-    { label: "ECU", link: "/project-select" },
-    { label: "Umbilical", link: "/project-select" },
-    { label: "Harnesses", link: "/project-select" },
-    { label: "Connectors", link: "/project-select" },
+    { label: "ציוד וחומרה", link: "/inventory-list" },
+    { label: "מעקב עמדות", link: "/project-select" },
+    { label: "משימות", link: "/project-select" },
 ];
 
   return (

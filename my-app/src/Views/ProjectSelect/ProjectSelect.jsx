@@ -5,15 +5,14 @@ import { Link, useParams } from "react-router-dom"; // Import Link from React Ro
 import './ProjectSelect.css';
 
 export const ProjectSelect = (props) => {
-  const { id } = useParams(); // Get the ID from the URL (Harnesses, ECU, etc.)
-  console.log(id);
+
   
   const backBtn = true; 
   const menuItems = [
-      { label: "Reccelite XR", link: "/profile" },
-      { label: "Litening", link: "/Litening/:id" },
-      { label: "Blue Bird", link: "/Blue Bird/:id" },
-      { label: "Hydra", link: "/Hydra/:id" },
+      { label: "Reccelite XR", link: "/xr-workstations" },
+      { label: "Litening", link: "/litening-workstations" },
+      { label: "Blue Bird", link: "/bb-workstations" },
+      { label: "Hydra", link: "/hydra-workstations" },
   ];
   
     return (

@@ -1,0 +1,63 @@
+.station-select-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .add-new-button {
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+  }
+  .station-box {
+    cursor: pointer;
+  }
+  .ws-logo{
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    transition: ease-in-out 0.1s;
+  }
+  .station-name-input{
+   display: flex;
+   justify-content: center;
+   margin: 0 auto;
+  }
+  .station-name {
+    color: #f2f0f0ec;
+    font-size: 30px;
+    text-align: center;
+    cursor: default;
+  }
+  
+  .station-box input {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    padding: 5px;
+  }
+  .ws-logo:hover{
+    transform: scale(1.02);
+    transition: ease-in-out 0.1s;
+  }
+
+  
+  .station-box {
+    position: relative;
+  }
+  
+  .delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #ff0000; 
+  }
+.delete-icon:hover{
+    transform: scale(1.8);
+}  

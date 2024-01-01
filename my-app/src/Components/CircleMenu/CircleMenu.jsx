@@ -26,7 +26,7 @@ export const CircleMenu = ({items, backBtn}) => {
       </button>
       <div className={`circle-menu ${isOpen ? "open" : ""}`}>
         {items.map((item, index) => (
-          <Link key={index} to={{ pathname: item.link + "/" + item.label}}>
+          <Link key={index} to={{ pathname: item.link /* + "/" + item.label */}}>
             
             <button onClick={() => test(item.label)}
               className="circle-menu-item"

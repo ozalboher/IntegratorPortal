@@ -6,11 +6,12 @@ import { HomePage } from './Views/HomePage/HomePage';
 import { AboutPage } from './Views/AboutPage/AboutPage';
 import { NotFound } from './Views/NotFound/NotFound';
 import { ProfilePage } from './Views/ProfilePage/ProfilePage';
-import { Connectors } from './Views/Connectors/Connectors';
+import { InventoryList } from './Views/InventoryList/InventoryList';
 import { Modal } from './Components/Modal/Modal';
 import { Login } from './Components/Login/Login';
 import { SignUp } from './Components/SignUp/SignUp';
 import { ProjectSelect } from './Views/ProjectSelect/ProjectSelect';
+import { XrWs } from './Views/Workstations/XrWs/XrWs';
 
 const App = () => {
   
@@ -62,9 +63,11 @@ const App = () => {
             <Route path="/home" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/connectors" element={<Connectors />} />
-            <Route path="/project-select/:id" element={<ProjectSelect />} />
+            <Route path="/inventory-list" element={<InventoryList />} />
+            <Route path="/project-select" element={<ProjectSelect />} />
             <Route path="*" element={<NotFound />} />
+            {/* Workstations Links */}
+            <Route path="/xr-workstations" element={<XrWs />} />
           </Routes>
           {showModal && (
             <Modal showModal={showModal} setShowModal={setShowModal} >
