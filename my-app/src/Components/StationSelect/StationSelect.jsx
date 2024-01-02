@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import './StationSelect.css'; // Import your CSS file for styling
+import { Link } from "react-router-dom"; 
+import './StationSelect.css'; 
 import WorkstationLogo from '../../Assets/WorkstationLogo.png';
 
-export const StationSelect = () => {
-  const [items, setItems] = useState([{ id: 1, name: 'New Station' }]);
+export const StationSelect = (props) => {
+  const { items, setItems, setWsName } = props; // Make the items and setItems props available
   const [editMode, setEditMode] = useState(null);
   const [stationName, setStationName] = useState('Your Station Name');
   const [newItem, setNewItem] = useState({
@@ -52,6 +53,9 @@ export const StationSelect = () => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const dostuff = (item) => {
+    setWsName(item);
+  };
   return (
     <div className="station-select-container">
       <button className="add-new-button" onClick={handleSaveNewItem}>
@@ -59,8 +63,10 @@ export const StationSelect = () => {
       </button>
       {items.map((item) => (
         <li key={item.id} className="">
-          <div className="station-box">
-            <img className="ws-logo" src={WorkstationLogo} alt="StationLogo" />
+          <div className="station-box" >
+          {/* <Link to={{ pathname: `${item.name}` }}> */}
+            <img className="ws-logo" src={WorkstationLogo} alt="StationLogo" onClick={() => dostuff(item.name)}/>
+            {/* </Link>  */}
             {editMode === item.id ? (
               <input
                 className="station-name-input"
