@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    justify-content: center;
   }
   
   .add-new-button {
@@ -14,13 +14,18 @@
     border: none;
   }
   .station-box {
-    cursor: pointer;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(auto-fit, minmax(3, 1fr)); */
+    gap: 50px;
+
   }
   .ws-logo{
     width: 250px;
     height: 250px;
     margin: 0 auto;
     transition: ease-in-out 0.1s;
+    cursor: pointer;
   }
   .station-name-input{
    display: flex;
@@ -51,9 +56,8 @@
   }
   
   .delete-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    position: relative;
+    bottom: 250px;
     cursor: pointer;
     font-size: 18px;
     color: #ff0000; 

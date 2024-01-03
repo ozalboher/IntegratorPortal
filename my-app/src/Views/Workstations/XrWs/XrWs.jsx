@@ -10,7 +10,7 @@ export const XrWs = () => {
         <div>
             <h1 style={{ textAlign: 'center' }}>RECCELITE WORKSTATIONS</h1>
             {!wsName && <StationSelect items = {items} setItems = {setItems} setWsName={setWsName}/>}
-          {wsName && <h2 style={{ textAlign: 'center' }}>You selected: {wsName}</h2>} 
+            {wsName && <h2 style={{ textAlign: 'center' }}>You selected: {wsName}</h2>} 
             {wsName && <StationInfo></StationInfo>}
         </div>
     );
