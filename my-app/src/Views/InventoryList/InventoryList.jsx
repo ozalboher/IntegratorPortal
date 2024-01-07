@@ -1,5 +1,6 @@
 // src/components/InventoryList.js
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './InventoryList.css';
 
 export const InventoryList = () => {
@@ -41,7 +42,7 @@ export const InventoryList = () => {
     setInventoryItems((prevItems) => [
       ...prevItems,
       {
-        id: prevItems.length + 1,
+        id: uuidv4(),
         ...newItem,
         isEditing: false,
       },
