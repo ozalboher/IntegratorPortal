@@ -81,7 +81,7 @@ export const StationInfo = (props) => {
         isEditing: false,
       },
     ]);
-    setIsAddingNewItem(false);
+  
     setNewItem({
       name: '',
       quantity: 0,
