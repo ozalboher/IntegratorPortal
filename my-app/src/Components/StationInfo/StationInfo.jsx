@@ -6,13 +6,14 @@ import "./StationInfo.css";
 import StationInfoLogo from "../../Assets/StationInfoLogo.png";
 
 export const StationInfo = (props) => {
-  const { items2, setItems2 } = props; // Make the items and setItems2 props available
+  const { items2, setItems2, setWsName } = props; // Make the items and setItems2 props available
   const [editMode, setEditMode] = useState(null);
   const [stationName, setStationName] = useState("Your Station Name");
   const [newItem, setNewItem] = useState({
     name: "New PC",
   });
   const [newItemInfo, setNewItemInfo] = useState({
+    id: '',
     mainApp: '',
     configTable: '',
     eoMask: '',
@@ -59,7 +60,7 @@ export const StationInfo = (props) => {
       }
     ]);
     console.log(items2);
-    setNewItem({ name: "New Station" }); // Clear the newItem after saving
+    setNewItem({ name: "New PC" }); // Clear the newItem after saving
   };
 
   const handleDeleteItem = (id) => {
@@ -73,22 +74,12 @@ export const StationInfo = (props) => {
     console.log(id);
   };
   const handleSaveItemInfo = () => {
-    setNewItemInfo((prevItems) => [
-      ...prevItems,
-      {
-        id: prevItems.length + 1,
-        ...newItem,
-        isEditing: false,
-      },
-    ]);
-    setIsAddingNewItem(false);
-    setNewItem({
-      name: '',
-      quantity: 0,
-      location: '',
-      partNumber: '',
-      status: 'In Stock',
-    });
+    setNewItemInfo((prevItem) => ({
+      ...prevItem,
+      id: uuidv4(),
+    }));
+
+    setShowInfo(false);
   };
   const handleCancelAddNewItem = () => {
     setShowInfo(false);
@@ -106,6 +97,9 @@ export const StationInfo = (props) => {
   return (
     <>
       <div className="station-info-container">
+      <button className="add-new-button" onClick={() => setWsName('')}>
+          Back
+        </button>
         <button className="add-new-button" onClick={handleSaveNewItem}>
           Add New
         </button>
