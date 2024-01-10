@@ -5,7 +5,7 @@ import {StationInfo } from '../../../Components/StationInfo/StationInfo';
 
 export const XrWs = () => {
     const [items, setItems] = useState([{ id: 1, name: 'New Station' }]);// Send the information to the StationSelect component
-    const [items2, setItems2] = useState([{ id: 1, name: 'New PC' }]);// Send the information to the StationSelect component
+    const [items2, setItems2] = useState([{ id: 1, name: 'New PC' }]);// Send the information to the StationInfo component
 
     const [wsName, setWsName] = useState('');// Set the wsName state to the selected station name
     return (
