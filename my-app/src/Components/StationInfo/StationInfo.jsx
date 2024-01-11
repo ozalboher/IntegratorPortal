@@ -96,10 +96,10 @@ export const StationInfo = (props) => {
   
   return (
     <>
-      <div className="station-info-container">
-      <button className="add-new-button" onClick={() => setWsName('')}>
-          Back
+      <button className="back-btn" onClick={() => setWsName('')}>GO BACK
+      &#9666;
         </button>
+      <div className="station-info-container">
         <button className="add-new-button" onClick={handleSaveNewItem}>
           Add New
         </button>
