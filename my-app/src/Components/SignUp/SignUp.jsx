@@ -39,7 +39,7 @@ export const SignUp = ({ showLogin, setShowLogin, setShowSuccessMsg }) => {
     const handleSelectChange = (event) => {
       setSelectedOption(event.target.value);
     };
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     console.log("register");
     
     e.preventDefault(); // Prevent the default form submit event, (which reloads the page).
@@ -51,7 +51,30 @@ export const SignUp = ({ showLogin, setShowLogin, setShowSuccessMsg }) => {
       return;
   }
    setError('');
-  };
+   
+   try {
+    // Import the run function from your backend
+    const { run } = require("../../../../backend/mongo");
+
+    // Connect to the MongoDB database
+    const db = await run();
+
+    // Store user data in the MongoDB database
+    const result = await db.collection("users").insertOne({
+      username,
+      password: password1,
+      firstName,
+      lastName,
+      selectedOption,
+      phoneNumber,
+    });
+
+    setShowSuccessMsg(true);
+  } catch (error) {
+    console.error("Error:", error);
+    setError(`Internal Server Error: ${error.message}`);
+  }
+};
   
   return (
     <>   

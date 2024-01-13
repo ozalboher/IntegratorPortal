@@ -24,7 +24,10 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
     const database = await client.db("portal");
     return database;
-  } finally {
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+  finally {
     // Ensures that the client will close when you finish/error,(best to use for database that is very big and need to close the connection to save resources).
     /* await client.close(); */
   }
