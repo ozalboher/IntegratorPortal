@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { BackIconSmall } from "../../Assets/BackIconSmall";
 import { v4 as uuidv4 } from 'uuid';
 // Other relevant styles that accessed (globally) here from "./StationSelect.css";
 import "./StationInfo.css";
@@ -96,8 +96,8 @@ export const StationInfo = (props) => {
   
   return (
     <>
-      <button className="back-btn" onClick={() => setWsName('')}>GO BACK
-      &#9666;
+      <button className="back-btn" onClick={() => setWsName('')}>
+       <BackIconSmall/>
         </button>
       <div className="station-info-container">
         <button className="add-new-button" onClick={handleSaveNewItem}>

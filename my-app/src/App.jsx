@@ -11,6 +11,7 @@ import { Modal } from './Components/Modal/Modal';
 import { Login } from './Components/Login/Login';
 import { SignUp } from './Components/SignUp/SignUp';
 import { ProjectSelect } from './Views/ProjectSelect/ProjectSelect';
+import { TasksPage } from './Views/TasksPage/TasksPage';
 import { XrWs } from './Views/Workstations/XrWs/XrWs';
 
 const App = () => {
@@ -65,8 +66,9 @@ const App = () => {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/inventory-list" element={<InventoryList />} />
             <Route path="/project-select" element={<ProjectSelect />} />
+            <Route path="/tasks" element={<TasksPage />} />
             <Route path="*" element={<NotFound />} />
-            {/* Workstations Links */}
+            { /* Workstations Links */ }
             <Route path="/xr-workstations" element={<XrWs />} />
           </Routes>
           {showModal && (
