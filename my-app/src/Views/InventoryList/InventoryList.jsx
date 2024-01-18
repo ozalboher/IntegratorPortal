@@ -84,6 +84,7 @@ const handleDeleteItem = (id) => {
   };
   return (
     <>
+    <div className='page-content'>
       <h2 className='inventory-title'>Inventory List</h2>
       <button className="add-item-button" onClick={handleAddNewItem}>
         Add New Item
@@ -226,6 +227,7 @@ const handleDeleteItem = (id) => {
           </div>
         </div>
       )}
+    </div>
     </div>
     </>
   );

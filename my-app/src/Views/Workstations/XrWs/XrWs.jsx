@@ -9,7 +9,7 @@ export const XrWs = () => {
 
     const [wsName, setWsName] = useState('');// Set the wsName state to the selected station name
     return (
-        <div>
+        <div className='page-content'>
             <h1 style={{ textAlign: 'center' }}>RECCELITE WORKSTATIONS</h1>
             {!wsName && <StationSelect items = {items} setItems = {setItems} setWsName={setWsName}/>}
             {wsName && <h2 style={{ textAlign: 'center' }}>Station Selected: {wsName}</h2>} 
