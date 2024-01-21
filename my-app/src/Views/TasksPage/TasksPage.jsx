@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 import './TasksPage.css';
 
 export const TasksPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('open');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [showFiltered, setShowFiltered] = useState(false);
+  const [dateFilter, setDateFilter] = useState('all');
+
 
   Modal.setAppElement('#root');
 
-  const openModal = (index) => {
+  const openModal = (id) => {
     setModalIsOpen(true);
-    setEditIndex(index);
-    const taskToEdit = index !== null ? tasks[index] : null;
+    setEditIndex(id);
+    const taskToEdit = id !== null ? tasks.find(task => task.id === id) : null;
+  
     setTitle(taskToEdit?.title || '');
     setDescription(taskToEdit?.description || '');
     setStatus(taskToEdit?.status || 'open');
   };
+  
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -30,12 +37,13 @@ export const TasksPage = () => {
 
   const handleCreateTask = () => {
     const newTask = {
+      id: uuidv4(),
       title,
       description,
       status,
-      dateAdded: moment().format('DD-MM-YYYY HH:mm'),
+      dateAdded: moment().format('DD-MM-YYYY HH:mm:ss'),
     };
-
+    console.log(editIndex);
     if (editIndex !== null) {
       const updatedTasks = [...tasks];
       updatedTasks[editIndex] = newTask;
@@ -43,45 +51,54 @@ export const TasksPage = () => {
     } else {
       setTasks([...tasks, newTask]);
     }
-
+    setShowFiltered(false);
     closeModal();
   };
-
-  const handleDeleteTask = (index) => {
-    const isConfirmed = window.confirm('Are you sure you want to delete this task?');
+  const test = () => {
+    console.log(tasks);
+  };
+  const handleDeleteTask = (indexToDelete) => {
+    /* const isConfirmed = window.confirm('Are you sure you want to delete this task?'); */
+    const isConfirmed = true;
     if (isConfirmed) {
-      const updatedTasks = tasks.filter((_, i) => i !== index);
+      const updatedTasks = tasks.filter((task) => task.id !== indexToDelete);
       setTasks(updatedTasks);
     }
+    setShowFiltered(false);
   };
-
-  const handleStatusChange = (newStatus) => {
+     /*   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
-  };
+  }; */
 
-  const handleFilterChange = (e) => {
-    setStatusFilter(e.target.value);
+  const handleFilterStatusChange = (e) => {
+    const newStatusFilter = e.target.value;
+    setStatusFilter(newStatusFilter);
+    const filteredTasks = handleSort(newStatusFilter, dateFilter);
+    setFilteredTasks(filteredTasks);
+    setShowFiltered(true);
   };
-
-  const filteredAndSortedTasks = tasks
+  const handleFilterDateChange = (e) => {
+    const newDateFilter = e.target.value;
+    setDateFilter(newDateFilter);
+    const filteredTasks = handleSort(statusFilter, newDateFilter);
+    setFilteredTasks(filteredTasks);
+    setShowFiltered(true);
+  };
+    const handleSort = (statusFilter, newDateFilter) => {
+    const filteredAndSortedTasks = [...tasks]
     .filter((task) => statusFilter === 'all' || task.status === statusFilter)
     .sort((a, b) => {
-      if (statusFilter === 'most-recent') {
-        console.log('recent');
-        console.log(statusFilter);
-        return moment(b.dateAdded, 'DD-MM-YYYY HH:mm').diff(moment(a.dateAdded, 'DD-MM-YYYY HH:mm'));
-      } else if (statusFilter === 'oldest') {
-        console.log('oldest');
-        console.log(statusFilter);
-        return moment(a.dateAdded, 'DD-MM-YYYY HH:mm').diff(moment(b.dateAdded, 'DD-MM-YYYY HH:mm'));
+      if (newDateFilter === 'most-recent') {
+        return moment(b.dateAdded, 'DD-MM-YYYY HH:mm:ss').diff(moment(a.dateAdded, 'DD-MM-YYYY HH:mm:ss'));
+      } else if (dateFilter === 'oldest') {
+        return moment(a.dateAdded, 'DD-MM-YYYY HH:mm:ss').diff(moment(b.dateAdded, 'DD-MM-YYYY HH:mm:ss'));
       } else {
-        console.log('else');
-        console.log(statusFilter);
         return 0;
       }
-      
     });
-
+    return filteredAndSortedTasks;
+  };
+  const displayTasks = showFiltered ? filteredTasks : tasks;
   return (
     <div className="task-page">
       <header className="task-header">
@@ -93,7 +110,7 @@ export const TasksPage = () => {
       <div className="filter-section">
         <label>
           Filter by status:
-          <select className='filter-selection' value={statusFilter} onChange={handleFilterChange}>
+          <select className='filter-selection' value={statusFilter} onChange={handleFilterStatusChange}>
             <option value="all">All</option>
             <option className='option-open' value="open">Open</option>
             <option className='option-progress' value="in-progress">In Progress</option>
@@ -102,12 +119,15 @@ export const TasksPage = () => {
         </label>
         <label>
           Filter by date:
-          <select className='filter-selection' value={statusFilter} onChange={handleFilterChange}>
+          <select className='filter-selection' value={dateFilter} onChange={handleFilterDateChange}>
             <option value="all">All</option>
             <option value="most-recent">Most Recent</option>
             <option value="oldest">Oldest</option>
           </select>
         </label>
+        <button className="create-task-btn" onClick={test}>
+                TEST
+              </button>
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
         <div className='modal-box'>
@@ -143,8 +163,8 @@ export const TasksPage = () => {
         </div>
       </Modal>
       <div className="tasks-list">
-        {filteredAndSortedTasks.map((task, index) => (
-          <div key={index} className="task-item">
+        {displayTasks.map((task) => (
+          <div key={task.id} className="task-item">
             <div className='task-item-content'>
               <div className='task-item-header'>
                 <span className={`status ${task.status}`}>{task.status}</span>
@@ -156,8 +176,8 @@ export const TasksPage = () => {
                   <p>{task.description}</p>
                 </div>
                 <div className="task-actions">
-                  <button className="edit-btn" onClick={() => openModal(index)}>Edit</button>
-                  <button className="delete-btn" onClick={() => handleDeleteTask(index)}>
+                  <button className="edit-btn" onClick={() => openModal(task.id)}>Edit</button>
+                  <button className="delete-btn" onClick={() => handleDeleteTask(task.id)}>
                     Delete
                   </button>
                 </div>
