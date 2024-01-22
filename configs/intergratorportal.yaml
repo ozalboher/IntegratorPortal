@@ -18,7 +18,10 @@ spec:
         image: giladalboher/integratorportal:latest
         ports:
         - containerPort: 3000
-        
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
 ---
 apiVersion: v1
 kind: Service
