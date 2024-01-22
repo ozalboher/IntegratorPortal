@@ -42,7 +42,7 @@ jobs:
 
             - name: Wait for Pods to be running
               run: |
-                  while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for pod" && sleep 1; done
+                  while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do kubectl get pods -n integratorportal && sleep 1; done
 
             - name: Test service URLs
               run: |
