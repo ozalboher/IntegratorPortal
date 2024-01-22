@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integratorportal-deployment
+  namespace: integratorportal
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: integratorportal
+  template:
+    metadata:
+      labels:
+        app: integratorportal
+    spec:
+      containers:
+      - name: integratorportal
+        image: giladalboher/integratorportal:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: integratorportal-service
+  namespace: integratorportal
+spec:
+  selector:
+    app: integratorportal
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 30080
+  type: NodePort
