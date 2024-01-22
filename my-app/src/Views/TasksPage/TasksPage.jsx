@@ -35,20 +35,31 @@ export const TasksPage = () => {
     setEditIndex(null);
   };
 
-  const handleCreateTask = () => {
-    const newTask = {
-      id: uuidv4(),
-      title,
-      description,
-      status,
-      dateAdded: moment().format('DD-MM-YYYY HH:mm:ss'),
-    };
-    console.log(editIndex);
+  const handleSaveTask = () => {
     if (editIndex !== null) {
+      const newTask = {
+        id: editIndex,
+        title: title,
+        description: description,
+        status: status,
+        dateAdded: moment().format('DD-MM-YYYY HH:mm:ss'),
+      };
       const updatedTasks = [...tasks];
-      updatedTasks[editIndex] = newTask;
+
+      const taskIndex = updatedTasks.findIndex(task => task.id === editIndex);
+      if (taskIndex !== -1) {
+        updatedTasks[taskIndex] = newTask;
+        setTasks(updatedTasks);
+      }
       setTasks(updatedTasks);
     } else {
+      const newTask = {
+        id: uuidv4(),
+        title,
+        description,
+        status,
+        dateAdded: moment().format('DD-MM-YYYY HH:mm:ss'),
+      };
       setTasks([...tasks, newTask]);
     }
     setShowFiltered(false);
@@ -61,10 +72,25 @@ export const TasksPage = () => {
     /* const isConfirmed = window.confirm('Are you sure you want to delete this task?'); */
     const isConfirmed = true;
     if (isConfirmed) {
+      
       const updatedTasks = tasks.filter((task) => task.id !== indexToDelete);
-      setTasks(updatedTasks);
-    }
-    setShowFiltered(false);
+      console.log(updatedTasks);
+
+      setTasks((prevTasks) => {
+        const updatedTasks = prevTasks.filter((task) => task.id !== indexToDelete);
+        setFilteredTasks(updatedTasks);
+        return updatedTasks;
+      });
+      setFilteredTasks((prevTasks) => {
+        const updatedTasks = prevTasks.filter((task) => task.id !== indexToDelete);
+        return updatedTasks;
+      }
+      );
+    };
+    const filteredTasks = handleSort(statusFilter, dateFilter);
+    console.log(filteredTasks);
+    setFilteredTasks(filteredTasks);
+    setShowFiltered(true);
   };
      /*   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
@@ -152,7 +178,7 @@ export const TasksPage = () => {
           </div>
           <div>
             <div className="modal-buttons">
-              <button className="create-task-btn" onClick={handleCreateTask}>
+              <button className="create-task-btn" onClick={handleSaveTask}>
                 {editIndex !== null ? 'Save Task' : 'Create Task'}
               </button>
               <button className="cancel-btn" onClick={closeModal}>
