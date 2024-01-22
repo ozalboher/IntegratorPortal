@@ -40,17 +40,17 @@ jobs:
                 kubectl create namespace integratorportal
                 kubectl apply -f intergratorportal.yaml
 
-            - name: Wait for Pods to be running
-              run: |
-                  while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do kubectl get pods -n integratorportal && sleep 1; done
+            # - name: Wait for Pods to be running
+            #   run: |
+            #       while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do kubectl get pods -n integratorportal && sleep 1; done
 
-            - name: Test service URLs
-              run: |
-                docker images
-                minikube service list
-                kubectl get pods
-                minikube service integratorportal-service --url
-                echo "-----------------opening the service-----------------"
+            # - name: Test service URLs
+            #   run: |
+            #     docker images
+            #     minikube service list
+            #     kubectl get pods
+            #     minikube service integratorportal-service --url
+            #     echo "-----------------opening the service-----------------"
 
             - name: Commit & Push changes
               uses: actions-js/push@master
