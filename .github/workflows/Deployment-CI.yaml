@@ -37,6 +37,7 @@ jobs:
             - name: Deploy to minikube
               run: |
                 cd configs
+                kubectl create namespace integratorportal
                 kubectl apply -f intergratorportal.yaml
 
             - name: Wait for Pods to be running
@@ -56,4 +57,3 @@ jobs:
               with:
                github_token: ${{ secrets.ACTIONS_KEY }}
                branch: ${{ github.ref }}
-               
