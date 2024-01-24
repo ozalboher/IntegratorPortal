@@ -23,17 +23,18 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    def dockerPath = tool 'DockerInstallation'
+                    sh "${dockerPath}/docker build -t giladalboher/integratorportal:v1.0.${BUILD_ID} ."
                     docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_TOKEN') {
-                        def imageName = "giladalboher/integratorportal:v1.0.${BUILD_ID}"
-                        docker.build(imageName, '.')
-                        docker.withRegistry('', '') {
-                            docker.image(imageName).push()
+                        docker.withTool('DockerInstallation') {
+                            docker.image("giladalboher/integratorportal:v1.0.${BUILD_ID}").push()
                         }
-                        sh "sed -i \"s|image: giladalboher/integratorportal:v1.0.*|image: $imageName|\" configs/intergratorportal.yaml"
                     }
+                    sh "sed -i \"s|image: giladalboher/integratorportal:v1.0.*|image: giladalboher/integratorportal:v1.0.${BUILD_ID}|\" configs/intergratorportal.yaml"
                 }
             }
         }
+
 
         stage('Deploy to Minikube') {
             steps {
