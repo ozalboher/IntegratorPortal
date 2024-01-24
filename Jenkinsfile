@@ -1,9 +1,9 @@
 pipeline {
     agent any
-
+    
     tools {
         // Reference the Docker installation configured in Jenkins
-        dockerTool 'DockerInstallation'
+        docker 'DockerInstallation'
     }
 
     environment {
