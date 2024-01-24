@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = credentials('DOCKER_USER')
+        // DOCKER_USER = credentials('DOCKER_USER')
         DOCKER_TOKEN = credentials('DOCKER_TOKEN')
     }
 
