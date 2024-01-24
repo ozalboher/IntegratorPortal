@@ -37,21 +37,14 @@ export const TasksPage = () => {
 
   const handleSaveTask = () => {
     if (editIndex !== null) {
-      const newTask = {
-        id: editIndex,
-        title: title,
-        description: description,
-        status: status,
-        dateAdded: moment().format('DD-MM-YYYY HH:mm:ss'),
-      };
+      const newTask = handleEditTask(editIndex);
       const updatedTasks = [...tasks];
-
       const taskIndex = updatedTasks.findIndex(task => task.id === editIndex);
       if (taskIndex !== -1) {
         updatedTasks[taskIndex] = newTask;
         setTasks(updatedTasks);
       }
-      setTasks(updatedTasks);
+      /* setTasks(updatedTasks); */
     } else {
       const newTask = {
         id: uuidv4(),
@@ -72,28 +65,40 @@ export const TasksPage = () => {
     /* const isConfirmed = window.confirm('Are you sure you want to delete this task?'); */
     const isConfirmed = true;
     if (isConfirmed) {
-      
-      const updatedTasks = tasks.filter((task) => task.id !== indexToDelete);
-      console.log(updatedTasks);
-
-      setTasks((prevTasks) => {
-        const updatedTasks = prevTasks.filter((task) => task.id !== indexToDelete);
-        setFilteredTasks(updatedTasks);
-        return updatedTasks;
-      });
-      setFilteredTasks((prevTasks) => {
-        const updatedTasks = prevTasks.filter((task) => task.id !== indexToDelete);
-        return updatedTasks;
-      }
-      );
+      const prevTasks = [...tasks];
+      const updatedTasks = prevTasks.filter((task) => task.id !== indexToDelete);
+      setTasks(updatedTasks);
     };
-    const filteredTasks = handleSort(statusFilter, dateFilter);
-    console.log(filteredTasks);
-    setFilteredTasks(filteredTasks);
-    setShowFiltered(true);
+    setShowFiltered(false);                                     
   };
-     /*   const handleStatusChange = (newStatus) => {
-    setStatus(newStatus);
+
+  const handleEditTask = (editIndex) => {
+    const updatedTasks = [...tasks];
+    const taskIndex = updatedTasks.findIndex(task => task.id === editIndex);
+    const dateAdded = updatedTasks[taskIndex].dateAdded;
+    const newTask = {
+      id: editIndex,
+      title: title,
+      description: description,
+      status: status,
+      dateAdded: dateAdded,
+      dateEdited: moment().format('DD-MM-YYYY HH:mm:ss'),
+    };
+    return newTask;
+  };
+  const handleTaskDone = (editIndex) => {
+    setStatus('done');
+    const newTask = handleEditTask(editIndex);
+    const updatedTasks = [...tasks];
+    const taskIndex = updatedTasks.findIndex(task => task.id === editIndex);
+    if (taskIndex !== -1) {
+      updatedTasks[taskIndex] = newTask;
+      setTasks(updatedTasks);
+    }
+  };
+
+      /*   const handleStatusChange = (newStatus) => {
+           setStatus(newStatus);
   }; */
 
   const handleFilterStatusChange = (e) => {
@@ -114,13 +119,13 @@ export const TasksPage = () => {
     const filteredAndSortedTasks = [...tasks]
     .filter((task) => statusFilter === 'all' || task.status === statusFilter)
     .sort((a, b) => {
-      if (newDateFilter === 'most-recent') {
+      if (newDateFilter === 'most-recent'){
         return moment(b.dateAdded, 'DD-MM-YYYY HH:mm:ss').diff(moment(a.dateAdded, 'DD-MM-YYYY HH:mm:ss'));
-      } else if (dateFilter === 'oldest') {
+      } else if (dateFilter === 'oldest'){
         return moment(a.dateAdded, 'DD-MM-YYYY HH:mm:ss').diff(moment(b.dateAdded, 'DD-MM-YYYY HH:mm:ss'));
       } else {
-        return 0;
-      }
+       return 0;
+      } 
     });
     return filteredAndSortedTasks;
   };
@@ -153,7 +158,7 @@ export const TasksPage = () => {
         </label>
         <button className="create-task-btn" onClick={test}>
                 TEST
-              </button>
+       </button>
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
         <div className='modal-box'>
@@ -194,15 +199,21 @@ export const TasksPage = () => {
             <div className='task-item-content'>
               <div className='task-item-header'>
                 <span className={`status ${task.status}`}>{task.status}</span>
+                <div>
                 <p>Date Added: {task.dateAdded}</p>
+                {task.dateEdited&&<p style={{ margin: '0px', fontWeight:'100' }}>Edited: {task.dateEdited}</p>}
+                </div>
               </div>
-              <div className="task-details">
+               <div className="task-details">
                 <div>
                   <h3>{task.title}</h3>
                   <p>{task.description}</p>
                 </div>
                 <div className="task-actions">
+                  <div>
                   <button className="edit-btn" onClick={() => openModal(task.id)}>Edit</button>
+                  <button style={{ marginLeft: '5px'}} className="edit-btn" onClick={() => handleTaskDone(task.id)}>Set as done</button>
+                  </div>
                   <button className="delete-btn" onClick={() => handleDeleteTask(task.id)}>
                     Delete
                   </button>
