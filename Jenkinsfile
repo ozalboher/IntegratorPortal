@@ -18,7 +18,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_TOKEN') {
                         def imageName = "giladalboher/integratorportal:v1.0.${BUILD_ID}"
                         docker.build(imageName, '.')
                         docker.withRegistry('', '') {
