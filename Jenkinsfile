@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // Reference the Docker installation configured in Jenkins
+        dockerTool 'DockerInstallation'
+    }
+
     environment {
         // DOCKER_USER = credentials('DOCKER_USER')
         DOCKER_TOKEN = credentials('DOCKER_TOKEN')
