@@ -11,7 +11,7 @@ pipeline {
         DOCKER_TOKEN = credentials('DOCKER_TOKEN')
     }
     parameters {
-    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'jenkins', name: 'BRANCH', type: 'PT_BRANCH'
+        choice(choices: ['jenkins'], description: 'Branch name', name: 'BRANCH')
     }
 
     stages {
