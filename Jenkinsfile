@@ -16,9 +16,9 @@ pipeline {
 
     stages {
         stage('Clone Code Repository') {
-          steps {
-            git branch: "${params.BRANCH}", url: 'https://github.com/giladAlboher/IntegratorPortal.git'
-          }
+            steps {
+                git branch: "${params.BRANCH}", url: 'https://github.com/giladAlboher/IntegratorPortal.git'
+            }
         }
 
         stage('Download Docker Binary') {
@@ -35,16 +35,9 @@ pipeline {
                 script {
                     def dockerPath = tool 'Docker'
                     sh "${dockerPath}/docker build -t giladalboher/integratorportal:v1.0.16 ."
-                    // docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_TOKEN') {
-                    //     docker.withTool('Docker') {
-                    //         docker.image("giladalboher/integratorportal:v1.0.${BUILD_ID}").push()
-                        }
-                    }
-                    // sh "sed -i \"s|image: giladalboher/integratorportal:v1.0.*|image: giladalboher/integratorportal:v1.0.${BUILD_ID}|\" configs/intergratorportal.yaml"
                 }
             }
-        
-
+        }
 
         stage('Deploy to Minikube') {
             steps {
@@ -56,8 +49,6 @@ pipeline {
                 }
             }
         }
-
-        // Add additional stages for testing, waiting for pods, etc. if needed
 
         stage('Commit & Push Changes') {
             steps {
@@ -71,4 +62,4 @@ pipeline {
             }
         }
     }
-
+}
