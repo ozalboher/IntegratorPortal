@@ -13,14 +13,6 @@ parameters {
   
   stages {
 
-    stage('Checkout') {
-        steps {
-            script {
-                checkout scm
-            }
-        }
-    }
-
     stage('Clone Code Repository') {
       steps {
         git branch: "${params.BRANCH}", url: 'https://github.com/giladAlboher/IntegratorPortal.git'

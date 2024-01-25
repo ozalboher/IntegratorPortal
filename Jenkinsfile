@@ -10,20 +10,21 @@ pipeline {
         // DOCKER_USER = credentials('DOCKER_USER')
         DOCKER_TOKEN = credentials('DOCKER_TOKEN')
     }
+    parameters {
+    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'jenkins', name: 'BRANCH', type: 'PT_BRANCH'
+    }
 
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    checkout scm
-                }
-            }
+        stage('Clone Code Repository') {
+          steps {
+            git branch: "${params.BRANCH}", url: 'https://github.com/giladAlboher/IntegratorPortal.git'
+          }
         }
 
         stage('Download Docker Binary') {
             steps {
                 script {
-                    def dockerPath = tool 'DockerInstallation'
+                    def dockerPath = tool 'Docker'
                     env.PATH = "${dockerPath}/bin:${env.PATH}"
                 }
             }
@@ -32,10 +33,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerPath = tool 'DockerInstallation'
+                    def dockerPath = tool 'Docker'
                     sh "${dockerPath}/docker build -t giladalboher/integratorportal:v1.0.${BUILD_ID} ."
                     docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_TOKEN') {
-                        docker.withTool('DockerInstallation') {
+                        docker.withTool('Docker') {
                             docker.image("giladalboher/integratorportal:v1.0.${BUILD_ID}").push()
                         }
                     }
