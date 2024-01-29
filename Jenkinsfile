@@ -20,23 +20,14 @@ pipeline {
                 git branch: "${params.BRANCH}", url: 'https://github.com/giladAlboher/IntegratorPortal.git'
             }
         }
-
-        stage('Download Docker Binary') {
+        stage('Install Docker') {
             steps {
-                script {
-                    def dockerPath = tool 'Docker'
-                    env.PATH = "${dockerPath}/bin:${env.PATH}"
-                    sh 'sleep 600'
-                }
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    def dockerPath = tool 'Docker'
-                    sh "${dockerPath}/bin/docker build -t giladalboher/integratorportal:v1.0.16 ."
-                }
+                sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+                sh 'sh get-docker.sh'
+                sh 'docker version'
+                sh 'docker login -u giladalboher -p ${DOCKER_TOKEN}'
+                sh 'docker build -t integratorportal .'
+                sh 'docker push docker push giladalboher/integratorportal:latest'
             }
             post {
                 always {
@@ -44,16 +35,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Minikube') {
-            steps {
-                script {
-                    dir('configs') {
-                        sh 'kubectl create namespace integratorportal'
-                        sh 'kubectl apply -f intergratorportal.yaml'
-                    }
-                }
-            }
-        }
-    }
+     }
 }
