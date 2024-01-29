@@ -26,6 +26,7 @@ pipeline {
                 script {
                     def dockerPath = tool 'Docker'
                     env.PATH = "${dockerPath}/bin:${env.PATH}"
+                    sh 'sleep 600'
                 }
             }
         }
