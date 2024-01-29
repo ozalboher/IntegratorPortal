@@ -51,7 +51,7 @@ jobs:
       - name: Wait for Pods to be running
         run: |
           SECONDS=0
-          TIMEOUT=30
+          TIMEOUT=60
           POD_COUNT=$(kubectl get pods -n integratorportal -o custom-columns=:metadata.name | wc -l)
           while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.phase}' | grep -o "Running" | wc -l) -ne $POD_COUNT ]]; do
             if [[ $SECONDS -gt $TIMEOUT ]]; then
