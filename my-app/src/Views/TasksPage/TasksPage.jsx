@@ -16,7 +16,7 @@ export const TasksPage = () => {
   const [showFiltered, setShowFiltered] = useState(false);
   const [dateFilter, setDateFilter] = useState('all');
 
-
+  
   Modal.setAppElement('#root');
 
   const openModal = (id) => {
@@ -53,10 +53,18 @@ export const TasksPage = () => {
         status,
         dateAdded: moment().format('DD-MM-YYYY HH:mm:ss'),
       };
-      setTasks([...tasks, newTask]);
+      const updatedTasks = [...tasks, newTask];
+      setTasks(updatedTasks);
+       if (dateFilter === 'all' && statusFilter === 'all'){
+        setShowFiltered(false);
+       }
+       else {
+        const sortedTasks = handleSort(statusFilter, dateFilter, updatedTasks);
+        setFilteredTasks(sortedTasks);
+       } 
+       
+       closeModal();
     }
-    setShowFiltered(false);
-    closeModal();
   };
   const test = () => {
     console.log(tasks);
@@ -86,14 +94,17 @@ export const TasksPage = () => {
     };
     return newTask;
   };
-  const handleTaskDone = (editIndex) => {
+  // editIndex, status, tasks
+  const handleTaskDone = (taskId) => {
     setStatus('done');
-    const newTask = handleEditTask(editIndex);
+    const newTask = handleEditTask(taskId);
     const updatedTasks = [...tasks];
-    const taskIndex = updatedTasks.findIndex(task => task.id === editIndex);
+    const taskIndex = updatedTasks.findIndex(task => task.id === taskId);
     if (taskIndex !== -1) {
+      newTask.status = 'done';
       updatedTasks[taskIndex] = newTask;
       setTasks(updatedTasks);
+      setFilteredTasks(updatedTasks);
     }
   };
 
@@ -104,22 +115,23 @@ export const TasksPage = () => {
   const handleFilterStatusChange = (e) => {
     const newStatusFilter = e.target.value;
     setStatusFilter(newStatusFilter);
-    const filteredTasks = handleSort(newStatusFilter, dateFilter);
+    const tasksToFilter = [...tasks]
+    const filteredTasks = handleSort(newStatusFilter, dateFilter, tasksToFilter);
+    console.log(filteredTasks);
     setFilteredTasks(filteredTasks);
     setShowFiltered(true);
   };
   const handleFilterDateChange = (e) => {
     const newDateFilter = e.target.value;
     setDateFilter(newDateFilter);
-    const filteredTasks = handleSort(statusFilter, newDateFilter);
+    const tasksToFilter = [...tasks]
+    const filteredTasks = handleSort(statusFilter, newDateFilter, tasksToFilter);
     setFilteredTasks(filteredTasks);
     setShowFiltered(true);
   };
-    const handleSort = (statusFilter, newDateFilter) => {
-    const filteredAndSortedTasks = [...tasks]
-    .filter((task) => statusFilter === 'all' || task.status === statusFilter)
-    .sort((a, b) => {
-      if (newDateFilter === 'most-recent'){
+    const handleSort = (statusFilter, dateFilter, tasksToFilter) => {
+     const Filtered = tasksToFilter.filter((task) => statusFilter === 'all' || task.status === statusFilter).sort((a, b) => {
+      if (dateFilter === 'most-recent'){
         return moment(b.dateAdded, 'DD-MM-YYYY HH:mm:ss').diff(moment(a.dateAdded, 'DD-MM-YYYY HH:mm:ss'));
       } else if (dateFilter === 'oldest'){
         return moment(a.dateAdded, 'DD-MM-YYYY HH:mm:ss').diff(moment(b.dateAdded, 'DD-MM-YYYY HH:mm:ss'));
@@ -127,7 +139,7 @@ export const TasksPage = () => {
        return 0;
       } 
     });
-    return filteredAndSortedTasks;
+    return Filtered;
   };
   const displayTasks = showFiltered ? filteredTasks : tasks;
   return (
