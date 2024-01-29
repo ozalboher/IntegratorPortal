@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     def dockerPath = tool 'Docker'
-                    sh "${dockerPath}/docker build -t giladalboher/integratorportal:v1.0.16 ."
+                    sh "docker build -t giladalboher/integratorportal:v1.0.16 ."
                 }
             }
         }
