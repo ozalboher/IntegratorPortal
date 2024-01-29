@@ -96,12 +96,12 @@ export const StationInfo = (props) => {
   
   return (
     <>
-      <button className="back-btn" onClick={() => setWsName('')}>
-       <BackIconSmall/>
-        </button>
       <div className="station-info-container">
         <button className="add-new-button" onClick={handleSaveNewItem}>
           Add New
+        </button>
+      <button className="back-btn" onClick={() => setWsName('')}>
+       <BackIconSmall/>
         </button>
         <div className="station-box">
           {items2.map((item) => (

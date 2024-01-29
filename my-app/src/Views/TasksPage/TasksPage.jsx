@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,11 +12,22 @@ export const TasksPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('open');
+  const [project, setProject] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [showFiltered, setShowFiltered] = useState(false);
   const [dateFilter, setDateFilter] = useState('all');
+  const [showFiltered, setShowFiltered] = useState(false);
 
-  
+  useEffect(() => {
+    console.log('the use effect ran');
+    if (statusFilter === 'all' && dateFilter === 'all') {
+      setShowFiltered(false);
+    } else {
+      const sortedTasks = handleSort(statusFilter, dateFilter, tasks);
+      setFilteredTasks(sortedTasks);
+      setShowFiltered(true);
+    }
+  }, [statusFilter, dateFilter]);
+
   Modal.setAppElement('#root');
 
   const openModal = (id) => {
@@ -43,8 +54,9 @@ export const TasksPage = () => {
       if (taskIndex !== -1) {
         updatedTasks[taskIndex] = newTask;
         setTasks(updatedTasks);
+        setFilteredTasks(updatedTasks);
       }
-      /* setTasks(updatedTasks); */
+     /* setTasks(updatedTasks); */
     } else {
       const newTask = {
         id: uuidv4(),
@@ -62,12 +74,12 @@ export const TasksPage = () => {
         const sortedTasks = handleSort(statusFilter, dateFilter, updatedTasks);
         setFilteredTasks(sortedTasks);
        } 
-       
-       closeModal();
-    }
+      }
+      closeModal();
   };
   const test = () => {
-    console.log(tasks);
+    console.log('tasks: ', tasks);
+    console.log('filtered tasks: ', filteredTasks);
   };
   const handleDeleteTask = (indexToDelete) => {
     /* const isConfirmed = window.confirm('Are you sure you want to delete this task?'); */
@@ -168,9 +180,6 @@ export const TasksPage = () => {
             <option value="oldest">Oldest</option>
           </select>
         </label>
-        <button className="create-task-btn" onClick={test}>
-                TEST
-       </button>
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
         <div className='modal-box'>
@@ -190,6 +199,18 @@ export const TasksPage = () => {
                 <option value="open">Open</option>
                 <option value="in-progress">In Progress</option>
                 <option value="done">Done</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Project:
+              <select value={project} onChange={(e) => setProject(e.target.value)}>
+                <option value="litening">Litening</option>
+                <option value="xr">Reccelite</option>
+                <option value="toplight">Toplight</option>
+                <option value="hydra">Hydra</option>
+                <option value="bluebird">BlueBird</option>
               </select>
             </label>
           </div>

@@ -12,8 +12,8 @@ export const XrWs = () => {
         <div className='page-content'>
             <h1 style={{ textAlign: 'center' }}>RECCELITE WORKSTATIONS</h1>
             {!wsName && <StationSelect items = {items} setItems = {setItems} setWsName={setWsName}/>}
-            {wsName && <h2 style={{ textAlign: 'center' }}>Station Selected: {wsName}</h2>} 
             {wsName && <StationInfo items2={items2} setItems2={setItems2} setWsName = {setWsName}></StationInfo>}
+            {wsName && <h2 style={{ textAlign: 'center' }}>Station Selected: {wsName}</h2>} 
         </div>
     );
 }
