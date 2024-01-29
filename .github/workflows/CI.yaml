@@ -42,7 +42,7 @@ jobs:
           docker images
           minikube service list
           kubectl get pods
-          minikube service integratorportal-service --url
+          minikube service integratorportal-service -n integratorportal --url
           echo "-----------------opening the service-----------------"
       
           - name: Set up QEMU
