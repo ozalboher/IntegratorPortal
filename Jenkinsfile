@@ -21,6 +21,12 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                sh 'echo $PATH'
+            }
+        }
+
         stage('Download Docker Binary') {
             steps {
                 script {
@@ -34,7 +40,8 @@ pipeline {
             steps {
                 script {
                     def dockerPath = tool 'Docker'
-                    sh "docker build -t giladalboher/integratorportal:v1.0.16 ."
+                    sh "${dockerPath}/bin/docker build -t giladalboher/integratorportal:v1.0.16 ."
+                }
                 }
             }
         }
