@@ -35,10 +35,14 @@ pipeline {
                 script {
                     def dockerPath = tool 'Docker'
                     sh "${dockerPath}/bin/docker build -t giladalboher/integratorportal:v1.0.16 ."
-                    }
                 }
             }
-        
+            post {
+                always {
+                    sh 'docker logout'
+                }
+            }
+        }
 
         stage('Deploy to Minikube') {
             steps {
@@ -48,12 +52,6 @@ pipeline {
                         sh 'kubectl apply -f intergratorportal.yaml'
                     }
                 }
-            }
-        }
-    
-        post{
-            always{
-                sh 'docker logout'
             }
         }
     }
