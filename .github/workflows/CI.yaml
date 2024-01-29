@@ -1,6 +1,7 @@
-name: Deployment CI
+name: ci
 on:
-     [ 'push', 'pull_request']
+     push:
+         branches: [ main ]
 jobs:
     CI:
         runs-on: ubuntu-20.04
@@ -47,17 +48,28 @@ jobs:
                 kubectl create namespace integratorportal
                 kubectl apply -f intergratorportal.yaml
 
-            # - name: Wait for Pods to be running
-            #   run: |
-            #       while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do kubectl get pods -n integratorportal && sleep 1; done
+            - name: Wait for Pods to be running
+              run: |
+                SECONDS=0
+                TIMEOUT=30
+                POD_COUNT=$(kubectl get pods -n integratorportal i--no-headers -o custom-columns=:metadata.name | wc -l)
+                while [[ $(kubectl get pods -n integratorportal -l app=integratorportal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') | grep -o "True" | wc -l) -ne $POD_COUNT ]]; do
+                  if [[ $SECONDS -gt $TIMEOUT ]]; then
+                    echo "Timed out waiting for pods to be ready"
+                    pod_name=$(kubectl get pods -n integratorportal -l app=integratorportal -o jsonpath='{.items[0].metadata.name}')
+                    kubectl describe pods $podname -n integratorportal
+                    exit 1
+                  fi
+                  kubectl get pods -n integratorportal && sleep 1; 
+                done
 
-            # - name: Test service URLs
-            #   run: |
-            #     docker images
-            #     minikube service list
-            #     kubectl get pods
-            #     minikube service integratorportal-service --url
-            #     echo "-----------------opening the service-----------------"
+            - name: Test service URLs
+              run: |
+                docker images
+                minikube service list
+                kubectl get pods
+                minikube service integratorportal-service --url
+                echo "-----------------opening the service-----------------"
 
             - name: Commit & Push changes
               uses: actions-js/push@master
