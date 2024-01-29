@@ -21,12 +21,6 @@ pipeline {
             }
         }
 
-        stage('Debug') {
-            steps {
-                sh 'which docker'
-            }
-        }
-
         stage('Download Docker Binary') {
             steps {
                 script {
@@ -56,16 +50,10 @@ pipeline {
                 }
             }
         }
-
-        stage('Commit & Push Changes') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'GITHUB_CREDENTIALS_ID', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')]) {
-                        sh 'git add -A'
-                        sh 'git commit -m "Jenkins Pipeline: Build #${BUILD_ID}"'
-                        sh 'git push origin master'
-                    }
-                }
+    
+        post{
+            always{
+                sh 'docker logout'
             }
         }
     }
