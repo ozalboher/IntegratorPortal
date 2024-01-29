@@ -41,10 +41,10 @@ pipeline {
                 script {
                     def dockerPath = tool 'Docker'
                     sh "${dockerPath}/bin/docker build -t giladalboher/integratorportal:v1.0.16 ."
-                }
+                    }
                 }
             }
-        }
+        
 
         stage('Deploy to Minikube') {
             steps {
