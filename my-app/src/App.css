@@ -30,6 +30,28 @@ h1{
 h2{
   color: #f2f0f0ec;
 }
+.general-btn{
+  padding: 16px 32px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+
+  cursor: pointer;
+  background-color: var(--button-blue);
+  color: #fff;
+}
+.general-btn:hover{
+  background-color: #2980b9;
+}
+.general-btn.delete{
+  background-color: #e74c3c;
+  color: #fff;
+}
+.general-btn.delete:hover {
+  background-color: #c0392b;
+}
 nav{
   position: fixed;
   top: 0;
