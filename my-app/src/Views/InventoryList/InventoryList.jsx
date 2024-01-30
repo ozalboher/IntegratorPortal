@@ -1,5 +1,6 @@
 // src/components/InventoryList.js
 import React, { useState } from "react";
+import { SearchBar } from "../../Components/SearchBar/SearchBar";
 import { v4 as uuidv4 } from "uuid";
 import "./InventoryList.css";
 
@@ -99,6 +100,7 @@ export const InventoryList = () => {
     <>
       <div className="page-content">
         <h1 className="inventory-title">Inventory List</h1>
+        <SearchBar/>
         <button className="general-btn" onClick={handleAddNewItem}>
           Add New Item
         </button>
