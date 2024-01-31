@@ -8,16 +8,12 @@ export const SearchBar = () => {
   const toggleSearchBar = () => {
     setIsExpanded(!isExpanded);
   };
-  const iconStyles = {
-    color: 'white',
-    width: '40px',
-    height: '40px',
-  };
+
 
   return (
     <div className={`search-container ${isExpanded ? 'expanded' : ''}`}>
       <div className="search-icon" onClick={toggleSearchBar}>
-      <Icon style={iconStyles} />
+      <Icon />
       </div>
       <input
         type="text"
@@ -27,5 +23,4 @@ export const SearchBar = () => {
     </div>
   );
 };
-
 

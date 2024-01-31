@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import "./InventoryList.css";
 
 export const InventoryList = () => {
+  const [statusFilter, setStatusFilter] = useState('all');
+
   const [oldInventoryItems, setOldInventoryItems] = useState([]);
   const [inventoryItems, setInventoryItems] = useState([
     {
@@ -101,10 +103,10 @@ export const InventoryList = () => {
       <div className="page-content">
         <h1 className="inventory-title">Inventory List</h1>
         <SearchBar/>
+        <div className="inventory-container">
         <button className="general-btn" onClick={handleAddNewItem}>
           Add New Item
         </button>
-        <div className="inventory-container">
           <ul className="inventory-list">
             {inventoryItems.map((item) => (
               <li key={item.id} className="inventory-item">
