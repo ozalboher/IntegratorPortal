@@ -1,42 +1,34 @@
 pipeline {
-    environment {
-        registry = "giladalboher/integratorportal"
-        registryCredential = 'DOCKER_TOKEN'
-        dockerImage = ''
-    }
     agent any
 
-    tools {
-        // This will auto-install Docker on the agent if it's not already installed
-        dockerTool 'Docker'
+    environment {
+        DOCKER_USER = credentials('DOCKER_USER')
+        DOCKER_TOKEN = credentials('DOCKER_TOKEN')
+        GITHUB_RUN_ID = "${BUILD_NUMBER}"
     }
+
     stages {
-        stage('cheackout') {
-            steps{
-                git branch: 'jenkins', url: 'https://github.com/giladAlboher/IntegratorPortal.git' 
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
 
-        stage('Building our image') {
-            steps{
-                script {
-                    def dockerPath = tool 'Docker'
-                    sh "${dockerPath}/bin/docker build -t ${env.IMAGE_TAG} ."
-                }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t giladalboher/integratorportal:v1.0.$GITHUB_RUN_ID .'
             }
         }
-        stage('Deploy our image') {
-            steps{
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
+
+        stage('Login to Docker Hub') {
+            steps {
+                sh 'echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin'
             }
         }
-        stage('Cleaning up') {
-            steps{
-                sh "docker rmi $registry:$BUILD_NUMBER"
+
+        stage('Docker Push') {
+            steps {
+                sh 'docker push giladalboher/integratorportal:v1.0.$GITHUB_RUN_ID'
             }
         }
     }
