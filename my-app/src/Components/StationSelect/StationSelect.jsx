@@ -79,6 +79,8 @@ export const StationSelect = (props) => {
                 src={WorkstationLogo}
                 alt="StationLogo"
                 onClick={() => dostuff(item.name)}
+                title=""
+                oncontextmenu="return false;"
               />
               {/* </Link>  */}
 

@@ -34,16 +34,18 @@
   .ReactModal__Overlay{
     background-color: rgba(28, 28, 28, 0) !important;
     opacity: 0.99;
+   
   }
   .ReactModal__Content--after-open{
     background-color: rgb(3, 44, 55) !important;
     opacity: 0.99;
-
     height: 600px !important;
+    
     transition: 400ms ease-in-out;
   }
   .modal{
     transition: 600ms ease-in-out;
+    border-radius: 10px;
     position: relative;
     margin: 0 auto;
     width: 400px;
