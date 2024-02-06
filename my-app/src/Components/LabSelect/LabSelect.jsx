@@ -1,16 +1,20 @@
+// Styles for the LabSelect component are in the StationSelect.css file
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
-import WorkstationLogo from "../../Assets/labs-icon.png";
+import LabLogo from "../../Assets/labs-icon.png";
+import { Msg } from "../Msg/Msg";
+import { BackIconSmall } from "../../Assets/BackIconSmall";
 
 
 export const LabSelect = (props) => {
-  const { items, setItems, setWsName } = props; // Make the items and setItems props available
+  const { items, setItems, setLabName } = props; // Make the items and setItems props available
   const [editMode, setEditMode] = useState(null);
   const [stationName, setStationName] = useState("Your Station Name");
   const [newItem, setNewItem] = useState({
     name: "New Lab",
   });
+  const [msg, setMsg] = useState("");
+  const [isError, setIsError] = useState(false);
   
   const handleNameClick = (id) => {
     setEditMode(id);
@@ -22,12 +26,27 @@ export const LabSelect = (props) => {
   };
 
   const handleNameChange = (event) => {
+    if (event.target.value.length > 15) {
+      setIsError(true);
+      setMsg("Name is too long");
+      setTimeout(() => {
+        setMsg("");
+      }, 3000);
+      return;
+    }
+    if (event.target.value.length < 1) {
+      setIsError(true);
+      setMsg("Name is too short");
+      setTimeout(() => {
+        setMsg("");
+      }, 3000);
+    }
     setStationName(event.target.value);
   };
 
   const handleNameBlur = () => {
     setEditMode(null);
-
+    console.log("Save the new name: ", stationName);
     // Update the item's name in the state
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -54,12 +73,15 @@ export const LabSelect = (props) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  const dostuff = (item) => {
-    setWsName(item);
+  const handleSelectedItem = (item) => {
+    setLabName(item);
   };
   return (
     <>
       <div className="station-select-container">
+        <div className="popup-msg-labs"> 
+         {msg&&<Msg msg={msg} isError={isError}/>}
+        </div>
         <button className="add-new-button" onClick={handleSaveNewItem}>
           Add New
         </button>
@@ -75,11 +97,11 @@ export const LabSelect = (props) => {
               {/* <Link to={{ pathname: `${item.name}` }}> */}
               <img
                 className="ws-logo"
-                src={WorkstationLogo}
+                src={LabLogo}
                 alt="StationLogo"
-                onClick={() => dostuff(item.name)}
+                onClick={() => handleSelectedItem(item.name)}
                 title=""
-                oncontextmenu="return false;"
+                onContextMenu={(e) => e.preventDefault()}
               />
               {/* </Link>  */}
 
@@ -102,6 +124,7 @@ export const LabSelect = (props) => {
             </li>
           ))}
         </div>
+    
       </div>
     </>
   );

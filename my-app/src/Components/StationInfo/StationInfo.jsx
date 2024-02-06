@@ -119,7 +119,7 @@ export const StationInfo = (props) => {
                 alt="StationLogo"
                 onClick={() => handleShowInfo(item.name)}
                 title="" // This is the text that appears when you hover over the image
-                oncontextmenu="return false;" // This prevents the right-click img menu from appearing
+                onContextMenu={(e) => e.preventDefault()} // This prevents the right-click img menu from appearing
               />
               {/* </Link>  */}
 

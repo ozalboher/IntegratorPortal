@@ -80,7 +80,7 @@ export const StationSelect = (props) => {
                 alt="StationLogo"
                 onClick={() => dostuff(item.name)}
                 title=""
-                oncontextmenu="return false;"
+                onContextMenu={(e) => e.preventDefault()}
               />
               {/* </Link>  */}
 
