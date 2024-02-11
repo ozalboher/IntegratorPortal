@@ -17,11 +17,12 @@ export const XrLabs= () => {
         <>
         <div className='page-content'>
         <h1 style={{ textAlign: "center" }}>XR LABS</h1>
-            {!labName && <LabSelect items={labItems} setItems={setLabItems} setName={setLabName}/>}
-            { labName && !stationTitleName && <StationSelect items = {items} setItems = {setItems} setName={setStationTitleName}/>}
-            { stationTitleName && <StationInfo items={items2} setItems={setItems2} setName = {setStationTitleName}/>}
             {labName && <h2 style={{ textAlign: 'center' }}>Lab Selected: {labName}</h2>} 
             {stationTitleName && <h2 style={{ textAlign: 'center' }}>Station Selected: {stationTitleName}</h2>} 
+            {/*  pages content based on states of labName and stationTitleName */ }
+            {!labName && <LabSelect items={labItems} setItems={setLabItems} setName={setLabName}/>}
+            { labName && !stationTitleName && <StationSelect items = {items} setItems = {setItems} setName={setStationTitleName} labNameRemove = {setLabName}/>}
+            { stationTitleName && <StationInfo items={items2} setItems={setItems2} setName = {setStationTitleName}/>}
         </div>
         </>
     );

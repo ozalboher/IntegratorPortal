@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import { BackIconSmall } from "../../Assets/BackIconSmall";
 import "./StationSelect.css";
 import WorkstationLogo from "../../Assets/WorkstationLogo.png";
 
 
 export const StationSelect = (props) => {
-  const { items, setItems, setName } = props; // Make the items and setItems props available
+  const { items, setItems, setName, labNameRemove } = props; // Make the items and setItems props available
   const [editMode, setEditMode] = useState(null);
   const [stationName, setStationName] = useState("Your Station Name");
   const [newItem, setNewItem] = useState({
@@ -63,6 +64,9 @@ export const StationSelect = (props) => {
       <div className="station-select-container">
         <button className="add-new-button" onClick={handleSaveNewItem}>
           Add New
+        </button>
+        <button className="back-btn" onClick={() => labNameRemove('')}>
+        <BackIconSmall/>
         </button>
         <div className="station-box">
           {items.map((item) => (
