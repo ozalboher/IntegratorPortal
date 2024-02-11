@@ -6,7 +6,7 @@ import WorkstationLogo from "../../Assets/WorkstationLogo.png";
 
 
 export const StationSelect = (props) => {
-  const { items, setItems, setWsName } = props; // Make the items and setItems props available
+  const { items, setItems, setName } = props; // Make the items and setItems props available
   const [editMode, setEditMode] = useState(null);
   const [stationName, setStationName] = useState("Your Station Name");
   const [newItem, setNewItem] = useState({
@@ -56,7 +56,7 @@ export const StationSelect = (props) => {
   };
 
   const dostuff = (item) => {
-    setWsName(item);
+    setName(item);
   };
   return (
     <>

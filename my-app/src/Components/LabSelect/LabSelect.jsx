@@ -7,7 +7,7 @@ import { BackIconSmall } from "../../Assets/BackIconSmall";
 
 
 export const LabSelect = (props) => {
-  const { items, setItems, setLabName } = props; // Make the items and setItems props available
+  const { items, setItems, setName } = props; // Make the items and setItems props available
   const [editMode, setEditMode] = useState(null);
   const [stationName, setStationName] = useState("Your Station Name");
   const [newItem, setNewItem] = useState({
@@ -74,7 +74,7 @@ export const LabSelect = (props) => {
   };
 
   const handleSelectedItem = (item) => {
-    setLabName(item);
+    setName(item);
   };
   return (
     <>
