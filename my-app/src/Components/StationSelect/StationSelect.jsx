@@ -82,11 +82,11 @@ export const StationSelect = (props) => {
         <div className="popup-msg-labs">
           {msg && <Msg msg={msg} isError={isError} />}
         </div>
+        <div onClick={() => labNameRemove("")}>
+        <BackIconSmall/>
+        </div>
         <button className="add-new-button" onClick={handleSaveNewItem}>
           Add New
-        </button>
-        <button className="back-btn" onClick={() => labNameRemove("")}>
-          <BackIconSmall />
         </button>
         <div className="station-box">
           {items.map((item) => (

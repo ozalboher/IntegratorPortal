@@ -206,11 +206,11 @@ export const TasksPage = () => {
             <label>
               Project:
               <select value={project} onChange={(e) => setProject(e.target.value)}>
-                <option value="litening">Litening</option>
-                <option value="xr">Reccelite</option>
-                <option value="toplight">Toplight</option>
-                <option value="hydra">Hydra</option>
-                <option value="bluebird">BlueBird</option>
+                <option value="litening">Lite</option>
+                <option value="xr">XR</option>
+                <option value="toplight">TOP</option>
+                <option value="hydra">Hydration</option>
+                <option value="bluebird">BB</option>
               </select>
             </label>
           </div>

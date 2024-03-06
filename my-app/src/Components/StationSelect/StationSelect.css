@@ -91,3 +91,17 @@
   background-color: #00438b;
   transition: ease-in-out 0.1s;
 }
+.back-icon-small{
+  /* margin-bottom: 10px; */
+  font-size: 18px;
+  background-color: rgba(13, 25, 52,0);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in-out 0.2s;
+}
+.back-icon-small:hover {
+  background-color: rgba(0, 0, 0, 0.425);
+  transition: ease-in-out 0.1s;
+}
