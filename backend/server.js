@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express'); 
 const app = express();
 const cors = require('cors');
-const { run } = require('./mongo');
 
-const {verify} = require('./utils/jwt'); 
+
+
 
 app.set('view engine', 'ejs'); // we set the view engine to ejs so we can use it in the res.render() function
 app.use(cors({

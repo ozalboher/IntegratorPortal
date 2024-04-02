@@ -21,8 +21,8 @@ export const XrLabs= () => {
             {stationTitleName && <h2 style={{ textAlign: 'center' }}>Station Selected: {stationTitleName}</h2>} 
             {/*  pages content based on states of labName and stationTitleName */ }
             {!labName && <LabSelect items={labItems} setItems={setLabItems} setName={setLabName}/>}
-            { labName && !stationTitleName && <StationSelect items = {items} setItems = {setItems} setName={setStationTitleName} labNameRemove = {setLabName}/>}
-            { stationTitleName && <StationInfo items={items2} setItems={setItems2} setName = {setStationTitleName}/>}
+            { labName && !stationTitleName && <StationSelect items={items} setItems={setItems} setName={setStationTitleName} labNameRemove={setLabName}/>}
+            { stationTitleName && <StationInfo items={items2} setItems={setItems2} setName={setStationTitleName}/>}
         </div>
         </>
     );

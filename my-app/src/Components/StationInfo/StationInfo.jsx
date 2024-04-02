@@ -6,13 +6,41 @@ import "./StationInfo.css";
 import StationInfoLogo from "../../Assets/StationInfoLogo.png";
 
 export const StationInfo = (props) => {
-  const { items, setItems, setName } = props;
+  const {items, setItems, setName} = props; // pass the items from the DB. 
   const [editMode, setEditMode] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
-  const [stationName, setStationName] = useState("Your Station Name");
-  const [newItem, setNewItem] = useState({
-    name: "New PC",
-  });
+  const [msg, setMsg] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [title, setTitle] = useState("");
+  const [value, setValue] = useState("");
+  const [list, setList] = useState([{
+    id: uuidv4(),
+    title: "Title",
+    value: "Value",
+  }]);
+  const handleNameChange = (event) => {
+    if (event.target.value.length > 15) {
+      setIsError(true);
+      setMsg("Name is too long");
+      setTimeout(() => {
+        setMsg("");
+      }, 3000);
+      return;
+    }
+    if (event.target.value.length < 1) {
+      setIsError(true);
+      setMsg("Name is too short");
+      setTimeout(() => {
+        setMsg("");
+      }, 3000);
+    }
+    setTitle(event.target.value);
+  };
+
+  const handleViewSoftware = () => {
+    setShowInfo(!showInfo);
+  };
+  
   const [softwareList, setSoftwareList] = useState([
     {
       id: "1",
@@ -27,34 +55,13 @@ export const StationInfo = (props) => {
       additionalInfo3: "",
       additionalInfo4: "",
     },
+  ]);
+  const [hardwareList, setHardwareList] = useState([
     {
       id: "1",
-      mainApp: "",
-      configTable: "",
-      eoMask: "",
-      dlMask: "",
-      sbcImage: "",
-      sbcApps: "",
-      additionalInfo: "",
-      additionalInfo2: "",
-      additionalInfo3: "",
-      additionalInfo4: "",
+      system: "POD",
     },
   ]);
-
-  const [hardwareList, setHardwareList] = useState([{
-    id: "1",
-    mainApp: "",
-    configTable: "",
-    eoMask: "",
-    dlMask: "",
-    sbcImage: "",
-    sbcApps: "",
-    additionalInfo: "",
-    additionalInfo2: "",
-    additionalInfo3: "",
-    additionalInfo4: "",
-  }]);
 
   return (
     <>
@@ -63,36 +70,20 @@ export const StationInfo = (props) => {
           <BackIconSmall />
         </div>
 
-        {softwareList.map((item) => (
-          <div key={1}>
-            <h3>Software</h3>
-            <p>Software Name: {item.mainApp}</p>
-            <p>Config Table: {item.configTable}</p>
-            <p>EO Mask: {item.eoMask}</p>
-            <p>DL Mask: {item.dlMask}</p>
-            <p>SBC Image: {item.sbcImage}</p>
-            <p>SBC Apps: {item.sbcApps}</p>
-            <p>Additional Info: {item.additionalInfo}</p>
-            <p>Additional Info 2: {item.additionalInfo2}</p>
-            <p>Additional Info 3: {item.additionalInfo3}</p>
-            <p>Additional Info 4: {item.additionalInfo4}</p>
-          </div>
+        {list.map((item) => (
+          <>
+            <h3 onClick={handleViewSoftware}>Software</h3>
+            {showInfo && 
+            <div key={item.id}>
+              <p>Software Name: {item.title}</p>
+              <p>Config Table: {item.value}</p>
+            </div>}
+          </>
         ))}
 
         {hardwareList.map((item) => (
           <div key={item.id}>
-
-            <h3>Hardware</h3>
-            <p>Software Name: {item.mainApp}</p>
-            <p>Config Table: {item.configTable}</p>
-            <p>EO Mask: {item.eoMask}</p>
-            <p>DL Mask: {item.dlMask}</p>
-            <p>SBC Image: {item.sbcImage}</p>
-            <p>SBC Apps: {item.sbcApps}</p>
-            <p>Additional Info: {item.additionalInfo}</p>
-            <p>Additional Info 2: {item.additionalInfo2}</p>
-            <p>Additional Info 3: {item.additionalInfo3}</p>
-            <p>Additional Info 4: {item.additionalInfo4}</p>
+            <h3 onClick={handleViewSoftware}>Software</h3>
           </div>
         ))}
         <button className="add-new-button">Edit</button>

@@ -1,4 +1,4 @@
-const { run } = require("./mongo");
+const { run } = require("../mongo");
 
 const getAllUsersService = async () => {
   let db; // Declare db outside the try block so it can be accessed in the finally block
